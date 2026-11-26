@@ -1,0 +1,139 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "research-monitor",
+  "version": "1.4.0",
+  "description": "Findings from new research in gut biology, cancer cell therapy and single-cell foundation models, each traced to the sentence in the paper that supports it.",
+  "author": {
+    "name": "Toufic Mayassi",
+    "email": "contact@research-monitor.com",
+    "url": "https://research-monitor.com"
+  },
+  "homepage": "https://research-monitor.com/docs/agents#chat-apps",
+  "keywords": [
+    "research",
+    "literature",
+    "papers",
+    "immunology",
+    "single-cell",
+    "evidence"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Research Monitor",
+        "shortDescription": "Evidence from new research",
+        "longDescription": "Research Monitor reads new papers every night (PubMed, bioRxiv, medRxiv) in three fields: gut biology and mucosal immunology, cancer cell therapy, and single-cell foundation models and perturbation prediction. It keeps a knowledge base of findings, each tied to the sentence in the paper that supports it and checked against the paper's text.\n\nIn ChatGPT you can follow a field and get a daily reading list of its most relevant new papers; ask what's new in a field; find the evidence on a question, with the paper to cite for each finding; see how established a finding is across independent groups; look up a paper and what it changed; list the open debates in a field with the papers on each side; and keep watching a claim, so that new papers for or against it are filed as alerts in your Research Monitor account. You can also give it a passage, a hypothesis or an aim, and see where it sits in a field: the area of the field map, the nearest ideas, the closest findings with their evidence, and the open questions in that corner. The passage is sent to Research Monitor and its embedding provider to be matched, and is not kept. Then ask who works in that corner: the field's voices, the senior authors publishing there now, the people who built it and those new to it, each with their recent papers and what they found. You can also place a paper you are reading by sending only its title, optional DOI or PMID, and up to eight extracted one-sentence claims (never the PDF or manuscript body): the title and extracted claims are sent to Research Monitor and its embedding provider to be matched and are not kept. Research Monitor checks publication integrity, places the paper on the field map, matches it against your projects and watched claims, and can optionally save its metadata and extracted claims into your Brought in list. For a paper you are presenting you can get a lab meeting brief, ready to paste: its bottom line, key findings, how the experiments were designed, and its caveats and questions for discussion, in Research Monitor's words with no sentence quoted from the paper's body. You can also ask what is moving in a field: the ideas its recent papers challenge or qualify, those whose standing changed in the last week, and the areas gaining or losing share of the field's papers over the last three or six months. Lastly you can test the claims of a draft against a field: give it up to ten claims, never the draft, and for each it returns the findings for it and against it, each with its paper, its checked quote and how established it is, and a verdict word computed from those stances (supported, disputed, contested, qualified or no evidence). The claims are sent to Research Monitor and its model providers to be judged and are kept only for one hour in the round's record, and each round counts against the plan's monthly rounds. It is not an assessment of the idea's merit.\n\nFindings are extracted by machine and each says whether it passed the check against the paper's text. Quotes from full text are shown only where the paper's licence permits.",
+        "developerName": "Toufic Mayassi",
+        "category": "Education & Research",
+        "capabilities": [
+          "Search research findings",
+          "Place papers and ideas on field maps",
+          "Test claims against evidence",
+          "Follow fields",
+          "Watch claims",
+          "Brief papers for lab meetings",
+          "See what is moving in a field",
+          "Save brought-in papers"
+        ],
+        "websiteURL": "https://research-monitor.com",
+        "supportURL": "https://research-monitor.com/docs/agents#support",
+        "privacyPolicyURL": "https://research-monitor.com/privacy",
+        "termsOfServiceURL": "https://research-monitor.com/terms",
+        "defaultPrompt": [
+          "What's new in single-cell foundation models this week?",
+          "What evidence is there that sparse autoencoders find interpretable features in single-cell foundation models?",
+          "Follow gut biology for me."
+        ],
+        "brandColor": "#1E1D1B",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Recent papers in a field",
+              "prompt": "What's new in foundation models and perturbation prediction over the last 14 days?",
+              "tools_triggered": "whats_new",
+              "expected_behavior": "Returns how many papers arrived, the most relevant ones with journals and dates, and (on the Researcher test account) the findings that changed in the knowledge base."
+            },
+            {
+              "description": "Evidence for a question, with citations",
+              "prompt": "What evidence is there that sparse autoencoders find interpretable features in single-cell foundation models? Cite the papers.",
+              "tools_triggered": "find_evidence",
+              "expected_behavior": "Returns up to 10 findings, each with its supporting quote, its check status (passed, failed or not checked yet) and the paper with PMID or DOI to cite."
+            },
+            {
+              "description": "Where a passage sits in a field, who works in that corner, how established its closest finding is, and that paper",
+              "prompt": "Where does this sit in gut biology: IL-15 produced by stressed epithelium licenses intraepithelial lymphocytes to kill enterocytes in celiac disease. Then who works in that corner, how established is the closest finding, and show me its paper. Then test these two claims against gut biology: IL-15 produced by stressed epithelium licenses intraepithelial lymphocytes to kill enterocytes in celiac disease; blocking IL-15 signalling reduces that killing.",
+              "tools_triggered": "place_idea, who_works_here, how_established, get_paper, stress_test",
+              "expected_behavior": "Returns the area of the gut biology map the passage lands in, the nearest ideas with how close they are, the closest findings with their check status and evidence state and the paper to cite for each, and the open questions in that area; then the people in that area with their recent papers, years active and institution as printed on their papers; then the closest finding's evidence state (single study, emerging, established, contested or refuted) with independent groups and model systems, or a note that it has not been compared yet; then the paper's title, authors, journal, year and abstract; then a round for the two claims (fetched with stress_test_result if it is still running) with a verdict word for each, the findings for and against it with their papers, checked quotes where the licence permits, evidence states, and the account's rounds used this month. A round counts against the account's monthly rounds."
+            },
+            {
+              "description": "Follow a field and read its reading list",
+              "prompt": "Follow gut biology for me, then give me my reading list.",
+              "tools_triggered": "follow_topic, my_reading_list",
+              "expected_behavior": "Follows gut_biology on the test account (following it again changes nothing) and returns up to five recent papers from the followed fields, each with its headline finding."
+            },
+            {
+              "description": "Open debates, then watch a claim",
+              "prompt": "What are the open debates in gut biology? Then keep watching the claim that microbial metabolites shape intraepithelial lymphocyte function.",
+              "tools_triggered": "field_debates, watch_claim",
+              "expected_behavior": "Lists the field's debates and open questions with each side and its papers, then creates a watched claim on the test account and says where it is shown (research-monitor.com/ideas)."
+            },
+            {
+              "description": "Place a paper in a field, then save it to Brought in",
+              "prompt": "Place this paper in gut biology using only its title, DOI 10.1038/s41586-026-44770-x, and these two claims: title 'Epithelial IL-15 trans-presentation sustains adult gut IELs', claims 'Epithelial IL-15RA trans-presentation maintains resident CD8aa intraepithelial lymphocytes in adult small intestine.' and 'Loss of epithelial IL-15RA reduces mucosal barrier protection during enteric challenge.' Then save it to my Brought in list.",
+              "tools_triggered": "place_paper, save_brought_paper",
+              "expected_behavior": "Checks whether the paper is already on record with any retraction or correction notice, returns where it lands on the gut biology field map (area, nearest ideas, closest checked findings with licence-safe quotes and evidence states, and open questions) plus overlaps with the account's projects, watched claims and followed field knowledge bases without storing anything; then saves the paper (by DOI or PubMed ID) and extracted claims into the Researcher test account's Brought in list and returns its reader URL and research-monitor.com/papers?view=brought."
+            },
+            {
+              "description": "A paper's lab meeting brief",
+              "prompt": "Give me a lab meeting brief for the paper with PMID 39178831.",
+              "tools_triggered": "lab_brief",
+              "expected_behavior": "Returns the paper's title, byline, journal and year, any retraction or correction notice, its bottom line, key findings, how its experiments were designed, and its caveats and discussion questions, with what the brief was built from (full-text read, abstract read, analysis, abstract or record) and a ready-to-paste Markdown version; no sentence from the paper's body is quoted."
+            },
+            {
+              "description": "What is moving in a field",
+              "prompt": "What is moving in gut biology over the last six months?",
+              "tools_triggered": "field_changes",
+              "expected_behavior": "On the Researcher test account, lists the gut biology ideas whose recent papers challenge or qualify them, and any whose standing changed in the week to the newest map, each with its counts of papers that build on, qualify or challenge it, and the areas gaining or losing share of the field's papers against the six months before. A Free account is told the answer is part of the Researcher plan."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Outside the fields covered. The plugin is not called, or find_evidence returns no findings with its note that the question may be outside the fields covered; the tool descriptions name the three fields.",
+              "prompt": "What's the latest research on black holes?"
+            },
+            {
+              "description": "On a Free test account that already follows Gut Biology: a second field, which Free does not include. The second follow returns PLAN_REQUIRED, naming the plan limit and the account's field, with a link to the informational plans page and no upgrade or checkout link.",
+              "prompt": "Follow gut biology, then follow foundation models too."
+            },
+            {
+              "description": "On a Free test account: saving a brought-in paper, which Free does not include. save_brought_paper returns PLAN_REQUIRED with a link to the informational plans page and no upgrade or checkout link; nothing is saved.",
+              "prompt": "Save the paper 'Epithelial IL-15 trans-presentation sustains adult gut IELs' to my Brought in list."
+            },
+            {
+              "description": "On a Free test account: asking what is moving in a field, which Free does not include. field_changes returns PLAN_REQUIRED with a link to the informational plans page and no upgrade or checkout link.",
+              "prompt": "What is moving in gut biology over the last six months?"
+            },
+            {
+              "description": "On a connection allowed to read only: keep watching a claim, which saves to the account. watch_claim returns 403 with an insufficient_scope challenge asking the person to allow saving; nothing is saved.",
+              "prompt": "Keep watching the claim that IL-15 drives IEL expansion."
+            },
+            {
+              "description": "On a connection allowed to read only: saving a brought-in paper, which writes to the account. save_brought_paper returns 403 with an insufficient_scope challenge asking the person to allow saving; nothing is saved.",
+              "prompt": "Save the paper 'Epithelial IL-15 trans-presentation sustains adult gut IELs' to my Brought in list."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin does not sell products or process payments."
+      },
+      "publication": {
+        "release_notes": "Version 1.4 adds lab_brief, a ready-to-paste lab meeting brief for a paper built from Research Monitor's stored reading with no model run, and field_changes, what is moving in a field: the ideas being challenged or changing standing and the areas gaining or losing share. Earlier in 1.3: place_paper and save_brought_paper plus the read-paper skill. Earlier in 1.2: place_idea, who_works_here, stress_test, stress_test_result, and the stress-test skill. The server answers at api.research-monitor.com."
+      }
+    }
+  }
+}

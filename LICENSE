@@ -1,0 +1,18 @@
+Copyright (c) 2026 Toufic Mayassi. All rights reserved.
+
+This repository contains the official client plugin, manifests, and skill files
+for Research Monitor (https://research-monitor.com).
+
+Permission is granted solely to download, install, and use these files in a
+compatible AI client (such as Claude, Claude Code, ChatGPT, or Codex) to connect
+to and interact with Research Monitor's hosted service, subject to the Research
+Monitor Terms of Service (https://research-monitor.com/terms).
+
+Except as expressly permitted above, no right or license is granted to copy,
+modify, adapt, sublicense, redistribute, or reuse these files, in whole or in
+part, for any other product or service without prior written permission from
+the copyright holder.
+
+THE FILES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.

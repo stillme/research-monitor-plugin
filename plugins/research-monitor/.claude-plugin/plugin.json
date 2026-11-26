@@ -1,0 +1,24 @@
+{
+  "name": "research-monitor",
+  "displayName": "Research Monitor",
+  "version": "1.4.0",
+  "description": "Findings from new research in gut biology, cancer cell therapy and single-cell foundation models, each traced to the sentence in the paper that supports it. Get a lab meeting brief for a paper or see what is moving in a field. Includes skills to read and place a local PDF paper against your fields and projects, or stress-test a draft's claims and write a dossier into your notes.",
+  "author": {
+    "name": "Toufic Mayassi",
+    "email": "contact@research-monitor.com",
+    "url": "https://research-monitor.com"
+  },
+  "homepage": "https://research-monitor.com/docs/agents#chat-apps",
+  "keywords": ["research", "literature", "papers", "immunology", "single-cell", "evidence"],
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://research-monitor.com/docs/agents",
+  "supportUrl": "https://research-monitor.com/docs/agents#support",
+  "privacyPolicyUrl": "https://research-monitor.com/privacy",
+  "termsOfServiceUrl": "https://research-monitor.com/terms",
+  "mcpServers": {
+    "research-monitor": {
+      "type": "http",
+      "url": "https://api.research-monitor.com/api/v1/mcp/app"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "research-monitor",
+  "description": "Findings from new research in gut biology, cancer cell therapy and single-cell foundation models, each traced to the sentence in the paper that supports it. Get a lab meeting brief for a paper or see what is moving in a field. Includes skills to read and place a local PDF paper against your fields and projects, or stress-test a draft's claims and write a dossier into your notes.",
+  "owner": {
+    "name": "Toufic Mayassi",
+    "email": "contact@research-monitor.com"
+  },
+  "plugins": [
+    {
+      "name": "research-monitor",
+      "description": "Findings from new research in gut biology, cancer cell therapy and single-cell foundation models, each traced to the sentence in the paper that supports it. Get a lab meeting brief for a paper or see what is moving in a field. Includes skills to read and place a local PDF paper against your fields and projects, or stress-test a draft's claims and write a dossier into your notes.",
+      "version": "1.4.0",
+      "author": {
+        "name": "Toufic Mayassi",
+        "email": "contact@research-monitor.com",
+        "url": "https://research-monitor.com"
+      },
+      "homepage": "https://research-monitor.com/docs/agents#chat-apps",
+      "category": "productivity",
+      "source": "./plugins/research-monitor"
+    }
+  ]
+}
